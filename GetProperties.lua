@@ -2,9 +2,13 @@
 -- Please note that this module may take a few seconds to start up on the first run.
 -- This is due to the fact that it has to import the whole API dump first.
 
-local APIDump = loadstring(game:HttpGet("https://raw.githubusercontent.com/Goennigoegoe/RobloxDemoSystem/main/ApiDump.lua"))();
+function GetLatest()
+	local STUDIO_VERSION = game:HttpGet("https://rprxy.deta.dev/setup/versionQTStudio")
+	local API_RAW = game:HttpGet(f("https://rprxy.deta.dev/setup/%s-API-Dump.json", STUDIO_VERSION))
+	local API_DATA = game:GetService("HttpService"):JSONDecode(API_RAW)
+end
 
-local API = APIDump.GetLatest()
+local API = GetLatest()
 
 local function HasProperty(Obj, PropName)
 	local s, _ = pcall(function()
